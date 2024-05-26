@@ -1,7 +1,7 @@
 from src.util.db import *
 class Usuario:
-    def __init__(self, user: str, id: str, password: str, nombre: str, edad: str, genero: str, direccion: str, cellphonen: str, email: str):
-        self.user = user
+    def __init__(self, userName: str, id: str, password: str, nombre: str, edad: str, genero: str, direccion: str, cellphone: str, email: str):
+        self.userName = userName
         self.id = id
         self.password = password
         self.nombre = nombre
@@ -12,16 +12,40 @@ class Usuario:
         self.email = email
 
     def crearUsuario(self):
-        con,cur = connectDatabase()
-        tipo = "administrador"
-        cur.execute(f''' 
-        INSERT INTO Users
-        (id, password, userName, nombre, edad, genero, direccion, cellphone, email, tipo)
-        VALUES('{self.id}', '{self.password}', '{self.userName}', 
-        '{self.nombre}', '{self.edad}', '{self.genero}', 
-        '{self.direccion}', '{self.cellphone}', '{self.email}', '{tipo}');
-        ''')
-        con.commit()
+        try:
+            con,cur = connectDatabase()
+            tipo = "administrador"
+            cur.execute(f''' 
+                INSERT INTO Users
+                (id, password, userName, nombre, edad, genero, direccion, cellphone, email, tipo)
+                VALUES('{self.id}', '{self.password}', '{self.userName}', 
+                '{self.nombre}', '{self.edad}', '{self.genero}', 
+                '{self.direccion}', '{self.cellphone}', '{self.email}', '{tipo}');
+            ''')
+            con.commit()
+            con.close()
+            print("Se creo el usuario con exito")
+        except Exception as e:
+            print("Ups, ah ocurrido un error")
+            print(e)
+    
+    def leerInformacionUsuario(self):
+        try:
+            con,cur = connectDatabase()
+            rowData = cur.execute(f''' select * from users where id='{self.id}';''')
+            user = None
+            for user in rowData:
+                user = Usuario(user["userName"],user["id"],
+                    user["password"],user["nombre"],
+                    user["edad"],user["genero"],user["direccion"],
+                    user["cellphone"],user["email"])
+            con.commit()
+            con.close()
+            return rowData
+        except:
+            print("Ups, ah ocurrido un error")
+            return None
+
 
 def checkUsuario(userName, password):
     try:
@@ -33,6 +57,7 @@ def checkUsuario(userName, password):
             user = Usuario(data["userName"], data["id"], data["password"],data["edad"]
                 ,data["genero"],data["direccion"],data["cellphone"], data["email"])      
         con.commit()
+        con.close()
         return tipo, user
     except:
         print("Ups, ha ocurrido un error")

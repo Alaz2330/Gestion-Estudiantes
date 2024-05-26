@@ -5,24 +5,25 @@ from src.classes.Usuario import checkUsuario
 
 def login():   
     while True:
-        userName = input("Ingrese su usuario: ")
+        username = input("Ingrese su usuario: ")
         password = input("Ingrese su contraseña: ")
-        tipo, user = checkUsuario(userName,password)
+        tipo, user = checkUsuario(username,password)
         currentUser = None
         if(tipo == "administrador"):
             currentUser = Administrador(user.userName,user.id,
                 user.password,user.nombre,user.edad,user.genero,
-                user.direccion,user.cellphone,user.email)
+                user.direccion,user.cellphone,user.email)                    
         elif(tipo == "estudiante"):
             currentUser = Estudiante(user.userName,user.id,
                 user.password,user.nombre,user.edad,user.genero,
-                user.direccion,user.cellphone,user.email)
+                user.direccion,user.cellphone,user.email)       
         elif(tipo == "profesor"):
             currentUser = Profesor(user.userName,user.id,
                 user.password,user.nombre,user.edad,user.genero,
-                user.direccion,user.cellphone,user.email)
+                user.direccion,user.cellphone,user.email)          
         else:
             print("El usuario no existe")
-        print(currentUser)
+        return tipo, currentUser   
+        
 
 

@@ -1,17 +1,15 @@
 import sqlite3
 
 def connectDatabase():
-    con = sqlite3.connect()
+    con = sqlite3.connect("db/gestion-estudiantes.db")
     con.row_factory = sqlite3.Row
     cur = con.cursor()
     return con,cur
 
 def dbSeeder():
     con, cur = connectDatabase()
-    cur.execute("PRAGMA foreign_keys = ON;")
-    con.commit()
     cur.execute(
-                '''CREATE TABLE IF NOT EXISTS users (
+                '''CREATE TABLE IF NOT EXISTS Users (
                     id TEXT NOT NULL,
                     password TEXT NOT NULL,
                     userName TEXT NOT NULL,
@@ -23,9 +21,9 @@ def dbSeeder():
                     email TEXT NOT NULL,
                     tipo TEXT NOT NULL,
                     CONSTRAINT Users_PK PRIMARY KEY (id)
-                ;)
+                );
                 ''')
-    con.commit()
+    con.commit() 
     cur.execute(
                 '''CREATE TABLE IF NOT EXISTS Asginaturas (
                 nombre TEXT NOT NULL,
@@ -47,6 +45,7 @@ def dbSeeder():
                 );
             ''')
     con.commit()
+    con.close()
     
     try:
         cur.execute(
@@ -55,5 +54,6 @@ def dbSeeder():
             ('123','pass','alejandro','alejandro','24','Masculino','test','3182793571','alejandro77arias@gmail.com','administrador')
             ''')
         con.commit()
+        con.close()
     except:
         print("Seeder update")

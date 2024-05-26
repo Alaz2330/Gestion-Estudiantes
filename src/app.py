@@ -1,8 +1,12 @@
 from src.util.db import dbSeeder
-from src.classes.Usuario import Usuario
+from src.model.menu import menuPrincipal
+
 
 def gestionEstudiantes():
-    print("Inicio de aplicativo")
+    dbSeeder()
+    menuPrincipal()
+
+
     
 
 
