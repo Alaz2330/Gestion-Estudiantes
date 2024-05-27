@@ -3,6 +3,8 @@ from src.classes.Estudiante import Estudiante
 from src.classes.Administrador import Administrador
 from src.model.login import login
 from src.model.gestionAdmnistrador import *
+from src.model.gestionEstudiante import *
+from src.model.gestionProfesor import *
 
 
 tipo, user = login()
@@ -21,7 +23,8 @@ def ejecutarOpcion(opcion, opciones):
     if len(opciones[opcion]) == 2:
         opciones[opcion][1]()
     elif len(opciones[opcion]) == 3:
-        consulta(user)
+        a = opciones[opcion][1]
+        a(opciones[opcion][2])
 
 def generarMenu(nombre, opciones, opcionSalida):  
     opcion = None
@@ -43,20 +46,20 @@ def menuPrincipal():
             "5": ("Cerrar sesión.", None),
             "6": ("Finalizar el programa.", None)
         }
-    elif(tipo == "Profesor"):
+    elif(tipo == "profesor"):
         finalizar = "6"
         opciones = {
             "1": ("Visualizar asignaturas.", None),
-            "2": ("Visualizar información personal.", None),
+            "2": ("Visualizar información personal.", visualizarInfoProfesor, user),
             "3": ("Actualizar información personal.", None),
             "4": ("4. Asignar asignatura.", None),
             "5": ("Cerrar sesión.", None),
             "6": ("Finalizar el programa.", None)
         }
-    elif(tipo == "Estudiante"):
+    elif(tipo == "estudiante"):
         finalizar = "5"
         opciones = {
-            "1": (" Visualizar información personal.", None),
+            "1": (" Visualizar información personal.", visualizarInfoEstudiante, user),
             "2": ("Actualizar información personal.", None),
             "3": ("Visualizar asignaturas.", None),
             "4": ("Cerrar sesión.", None),

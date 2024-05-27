@@ -11,7 +11,7 @@ def registrarNuevoUsuario():
                 ''')
         if tipo in ['1', '2', '3']:
             break  
-    atributos = {"userName":"el usuario","id":"el número de identificación","password":"la contraseña", 
+    atributos = {"id":"el número de identificación","password":"la contraseña","userName":"el usuario", 
             "nombre":"el nombre", "edad":"la edad", "genero":"el genero", "direccion":"la direccion de residencia", 
             "cellphone":"el número de celular", "email":"el email"
                 }
@@ -31,10 +31,12 @@ def registrarNuevoUsuario():
 def consulta(user):
     users = ()
     while True:
-        opcion = input('''Ingrese el tipo de consulta
-                                1)Consulta por id.            
-                                2)Consulta por nombre. 
-                                ''')
+        print(
+        '''Ingrese el tipo de consulta
+        1)Consulta por id.            
+        2)Consulta por nombre. 
+        ''')
+        opcion = input("Opción: ")
         if opcion in ["1", "2"]:           
             break
     if opcion == "1":
@@ -47,7 +49,7 @@ def consulta(user):
         #identificador = input.upper("Ingrese el nombre de la asignatura: ")
         #user.consultaEstudiante(identificador)
     for data in users:
-        data.mostrarUsuario()
+        print (data.mostrarUsuario())
     
     
 

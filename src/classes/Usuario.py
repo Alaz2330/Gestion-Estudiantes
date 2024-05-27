@@ -59,7 +59,7 @@ class Usuario:
         except:
             return "Ups, ah ocurrido un error"
     def mostrarUsuario(self):
-        print(self.userName, self.id, self.password, self.nombre, self.edad, self.genero, self.direccion, self.cellphone, self.email)
+        return self.userName, self.id, self.password, self.nombre, self.edad, self.genero, self.direccion, self.cellphone, self.email
 
 def checkUsuario(userName, password):
     try:
