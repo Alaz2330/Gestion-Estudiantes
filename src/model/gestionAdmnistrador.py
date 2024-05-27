@@ -1,6 +1,6 @@
-from src.classes.Profesor import *
-from src.classes.Estudiante import *
-from src.classes.Administrador import *
+from src.classes.Profesor import Profesor
+from src.classes.Estudiante import Estudiante
+from src.classes.Administrador import Administrador
 
 def registrarNuevoUsuario():
     while True: 
@@ -27,3 +27,29 @@ def registrarNuevoUsuario():
     elif tipo == "3":
         estudiante = Estudiante(atributos["id"],atributos["userName"],atributos["password"],atributos["nombre"],atributos["edad"],atributos["genero"],atributos["direccion"],atributos["cellphone"],atributos["email"])
         estudiante.crearUsuario()
+
+def consulta(user):
+    users = ()
+    while True:
+        opcion = input('''Ingrese el tipo de consulta
+                                1)Consulta por id.            
+                                2)Consulta por nombre. 
+                                ''')
+        if opcion in ["1", "2"]:           
+            break
+    if opcion == "1":
+        identificador = input("Ingrese el id del estudiante: ")
+        users = user.consultarEstudiante(identificador)
+    elif opcion == "2":  
+        identificador = input("Ingrese el nombre del estudiante: ")
+        users = user.consultarEstudiante(identificador)
+    #elif opcion == "3":
+        #identificador = input.upper("Ingrese el nombre de la asignatura: ")
+        #user.consultaEstudiante(identificador)
+    for data in users:
+        data.mostrarUsuario()
+    
+    
+
+
+

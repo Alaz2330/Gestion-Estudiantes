@@ -45,20 +45,48 @@ class Usuario:
         except:
             print("Ups, ah ocurrido un error")
             return None
-
+    
+    def actualizarUsuario(self,atributo,valor):
+        try:
+            con,cur = connectDatabase()
+            cur.execute(f'''UPDATE Users
+                        SET {atributo}='{valor}'
+                        WHERE id='{self.id}';
+                        ''')
+            con.commit()
+            con.close()
+            return "Se actualizo con exito"
+        except:
+            return "Ups, ah ocurrido un error"
+    def mostrarUsuario(self):
+        print(self.userName, self.id, self.password, self.nombre, self.edad, self.genero, self.direccion, self.cellphone, self.email)
 
 def checkUsuario(userName, password):
     try:
         con,cur = connectDatabase()
-        rowData = cur.execute(f''' select * from users where userName='{userName}' AND password='{password}';''')
+        rowData = cur.execute(f''' select * from Users where userName='{userName}' AND password='{password}';''')
         user = None
         for data in rowData:
             tipo = data["tipo"]
-            user = Usuario(data["userName"], data["id"], data["password"],data["edad"]
+            user = Usuario(data["userName"], data["id"], data["password"],data["nombre"],data["edad"]
                 ,data["genero"],data["direccion"],data["cellphone"], data["email"])      
         con.commit()
         con.close()
         return tipo, user
-    except:
+    except Exception as e:
         print("Ups, ha ocurrido un error")
+        print(e)
         return None, None
+
+def actualizarUsuario(id,atributo,valor):
+    try:
+        con,cur = connectDatabase()
+        cur.execute(f'''UPDATE Users
+                    SET {atributo}='{valor}'
+                    WHERE id='{id}';
+                    ''')
+        con.commit()
+        con.close()
+        return "Se actualizo con exito"
+    except:
+        return "Ups, ah ocurrido un error"
