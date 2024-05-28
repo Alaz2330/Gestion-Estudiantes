@@ -1,5 +1,5 @@
 from src.classes.Profesor import Profesor
 
 
-def visualizarInfoProfesor(user):
-    print(user.mostrarUsuario())
+def visualizarInfoProfesor(currentUser):
+    print(currentUser.mostrarUsuario())

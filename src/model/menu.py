@@ -1,23 +1,21 @@
 from src.classes.Profesor import Profesor
 from src.classes.Estudiante import Estudiante
 from src.classes.Administrador import Administrador
-from src.model.login import login
 from src.model.gestionAdmnistrador import *
 from src.model.gestionEstudiante import *
 from src.model.gestionProfesor import *
 
 
-tipo, user = login()
-def mostrarMenu(nombre, opciones):  # incorporamos el parámetro para mostrar el nombre del menú
+def mostrarMenu(nombre, opciones, tipo, currentUser):  # incorporamos el parámetro para mostrar el nombre del menú
     print(f'# {nombre}.')
-    print(f"{user.nombre} ha ingresado como {tipo}. Seleccione una opción:")
+    print(f"{currentUser.nombre} ha ingresado como {tipo}. Seleccione una opción:")
     for clave in sorted(opciones):
         print(f' {clave}) {opciones[clave][0]}')
 
 def leerOpcion(opciones):
-    while (a := input('Opción: ')) not in opciones:
-        print('Opción incorrecta, vuelva a intentarlo.')
-    return a
+    while (opcion := input('Opción: ')) not in opciones:
+        print("Opción incorrecta, vuelva a intentarlo.")
+    return opcion
 
 def ejecutarOpcion(opcion, opciones):
     if len(opciones[opcion]) == 2:
@@ -26,46 +24,45 @@ def ejecutarOpcion(opcion, opciones):
         a = opciones[opcion][1]
         a(opciones[opcion][2])
 
-def generarMenu(nombre, opciones, opcionSalida):  
+def generarMenu(nombre, opciones, opcionSalida, tipo, currentUser):  
     opcion = None
     while opcion != opcionSalida:
-        mostrarMenu(nombre, opciones)
+        mostrarMenu(nombre, opciones, tipo, currentUser)
         opcion = leerOpcion(opciones)
         ejecutarOpcion(opcion, opciones)
         
-def menuPrincipal():
+def menuPrincipal(tipo, currentUser):
     opciones = None
     finalizar = None
     if(tipo == "administrador"):
         finalizar = "6"
         opciones = {
             "1": ("Registrar nuevo usuario.", registrarNuevoUsuario),
-            "2": ("Consultar estudiante.", consulta, user),
+            "2": ("Consultar estudiante.", consulta, currentUser),
             "3": ("Actualizar información de usuario.", None),
-            "4": ("Asignar asignatura.", None),
+            "4": ("Asignar asignatura.", incluirAsignatura, currentUser),
             "5": ("Cerrar sesión.", None),
-            "6": ("Finalizar el programa.", None)
+            "6": ("Finalizar el programa.", print, "El programa ha finalizado")
         }
     elif(tipo == "profesor"):
-        finalizar = "6"
+        finalizar = "5"
         opciones = {
             "1": ("Visualizar asignaturas.", None),
-            "2": ("Visualizar información personal.", visualizarInfoProfesor, user),
+            "2": ("Visualizar información personal.", visualizarInfoProfesor, currentUser),
             "3": ("Actualizar información personal.", None),
-            "4": ("4. Asignar asignatura.", None),
-            "5": ("Cerrar sesión.", None),
-            "6": ("Finalizar el programa.", None)
+            "4": ("Cerrar sesión.", None),
+            "5": ("Finalizar el programa.", print, "El programa ha finalizado")
         }
     elif(tipo == "estudiante"):
         finalizar = "5"
         opciones = {
-            "1": (" Visualizar información personal.", visualizarInfoEstudiante, user),
+            "1": ("Visualizar información personal.", visualizarInfoEstudiante, currentUser),
             "2": ("Actualizar información personal.", None),
             "3": ("Visualizar asignaturas.", None),
             "4": ("Cerrar sesión.", None),
-            "5": ("Finalizar el programa.", None)
+            "5": ("Finalizar el programa.", print, "El programa ha finalizado")
         }
-    generarMenu("Menú principal", opciones, finalizar)
+    generarMenu("Menú principal", opciones, finalizar, tipo, currentUser)
 
     def subMenuConsultarEstudiante():
         opciones = {
@@ -73,4 +70,9 @@ def menuPrincipal():
             "2": ("Consulta por nombre", )   
         }
 
-
+    def submenuactualizarUsuario():
+        opciones = {
+            "1": ("Consulta por id: ", ),            
+            "2": ("Consulta por nombre", )   
+        }
+    

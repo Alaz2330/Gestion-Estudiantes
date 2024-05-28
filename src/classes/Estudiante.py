@@ -2,8 +2,8 @@ from src.classes.Usuario import Usuario
 from src.util.db import connectDatabase
 
 class Estudiante(Usuario):
-    def __init__(self, userName, id, password, nombre, edad, genero, direccion, cnumber, email, asignatura=None):
-        super().__init__(userName, id, password, nombre, edad, genero, direccion, cnumber, email)
+    def __init__(self, id,userName, password, nombre, edad, genero, direccion, cnumber, email, asignatura=None):
+        super().__init__(id, userName, password, nombre, edad, genero, direccion, cnumber, email)
         self.agregarAsignatura(asignatura)
 
     def agregarAsignatura(self,valor):

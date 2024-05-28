@@ -58,8 +58,10 @@ class Usuario:
             return "Se actualizo con exito"
         except:
             return "Ups, ah ocurrido un error"
+        
     def mostrarUsuario(self):
         return self.userName, self.id, self.password, self.nombre, self.edad, self.genero, self.direccion, self.cellphone, self.email
+    
 
 def checkUsuario(userName, password):
     try:
@@ -73,9 +75,7 @@ def checkUsuario(userName, password):
         con.commit()
         con.close()
         return tipo, user
-    except Exception as e:
-        print("Ups, ha ocurrido un error")
-        print(e)
+    except:
         return None, None
 
 def actualizarUsuario(id,atributo,valor):

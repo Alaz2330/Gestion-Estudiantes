@@ -25,7 +25,7 @@ def dbSeeder():
                 ''')
     con.commit() 
     cur.execute(
-                '''CREATE TABLE IF NOT EXISTS Asginaturas (
+                '''CREATE TABLE IF NOT EXISTS Asignaturas (
                 nombre TEXT NOT NULL,
                 profesorId TEXT NOT NULL,
                 CONSTRAINT NewTable_PK PRIMARY KEY (nombre),
