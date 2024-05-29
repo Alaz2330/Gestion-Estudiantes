@@ -54,3 +54,20 @@ class Administrador(Usuario):
         except Exception as e:
             print("Ups, ah ocurrido un error.")
             print(e)
+
+    def mostrarUsuarioAdministrador(self):
+        return self.userName, self.id, self.password, self.nombre, self.edad, self.genero, self.direccion, self.cellphone, self.email
+
+
+    def actualizarUsuarioAdministrador(self,id,atributo,valor):
+        try:
+            con,cur = connectDatabase()
+            cur.execute(f'''UPDATE Users
+                        SET {atributo}='{valor}'
+                        WHERE id='{id}';
+                        ''')
+            con.commit()
+            con.close()
+            return "Se actualizo con exito"
+        except:
+            return "Ups, ah ocurrido un error"

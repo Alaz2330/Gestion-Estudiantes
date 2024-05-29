@@ -1,19 +1,28 @@
 from src.classes.Profesor import Profesor
 from src.classes.Estudiante import Estudiante
 from src.classes.Administrador import Administrador
+from src.classes.Usuario import Usuario
 
 def registrarNuevoUsuario():
     while True: 
         tipo = input('''Ingrese el tipo:
-                1) Administrador
-                2) Profesor
-                3) Estudiante
+                1) Administrador.
+                2) Profesor.
+                3) Estudiante.
                 ''')
         if tipo in ['1', '2', '3']:
             break  
-    atributos = {"id":"el número de identificación","password":"la contraseña","userName":"el usuario", 
-            "nombre":"el nombre", "edad":"la edad", "genero":"el genero", "direccion":"la direccion de residencia", 
-            "cellphone":"el número de celular", "email":"el email"
+        else:
+            print("Opción incorrecta, vuelva a intentarlo.")
+    atributos = {"id":"el número de identificación",
+                 "password":"la contraseña",
+                 "userName":"el usuario", 
+                 "nombre":"el nombre", 
+                 "edad":"la edad", 
+                 "genero":"el genero", 
+                 "direccion":"la direccion de residencia", 
+                 "cellphone":"el número de celular", 
+                 "email":"el email"
     }
     for llave in atributos:
         atributos[llave] = input(f"Ingrese {atributos[llave]}:")
@@ -36,7 +45,7 @@ def consulta(currentUser):
         print("No se han encontrado coincidencias.")
     else:
         for data in users:
-            print (data.mostrarUsuario())
+            print (data.mostrarUsuarioAdministrador())
             
 
 def actualizarUsuario(currentUser):
@@ -44,30 +53,38 @@ def actualizarUsuario(currentUser):
         print(
         '''Ingrese el tipo de actualización que desea realizar:
         1) Actualizar información personal.
-        2) Actualizar información de otro usuario.
+        2) Actualizar información de otro usuario.    
+        3) Volver al menu principal.
         '''    
         )
-        opcion = input()
-        if opcion in ["1", "2"]:           
+        opcion = input("Opción: ")
+        if opcion in ["1", "2", "3"]:           
                 break
-    if opcion == "2":
-        atributos = {"password":"la contraseña", "nombre":"el nombre", 
-                    "direccion":"la direccion de residencia", 
-                    "cellphone":"el número de celular", "email":"el email"
-        }
-        numero = 1
-        print("Ingrese el tipo de dato que desea actualizar")
-        for llave in atributos:
-            numero += 1
-            print(f"{numero}) {atributos[llave]}.")
-        #while True:
-
-        #input()
-
-
-        #atributos[llave] = input(f"Ingrese {atributos[llave]}:")
-        #atributo = input()
-        #valor = input()
+        else:
+            print("Opción incorrecta, vuelva a intentarlo.")
+    if opcion == "1":
+        userName, id, password, nombre, edad, genero, direccion, cellphone, email = currentUser.mostrarUsuarioAdministrador()
+        atributos = {"password": (f"La contraseña: {password}"), 
+                     "nombre":(f"El nombre: {nombre}"),
+                     "direccion":(f"La direccion de residencia: {direccion}"), 
+                     "cellphone":(f"El número de celular: {cellphone}"), 
+                     "email":(f"El email: {email}")
+                }       
+        while True:
+            print("Seleccione el tipo de dato que desea actualizar")
+            numero = 1
+            for llave in atributos:            
+                print(f"{numero}) {atributos[llave]}.")
+                numero += 1
+            opcion2 = int(input("Opción: "))
+            if opcion2 in range(1,6):   
+                listatributos = list(atributos.keys())
+                atributo = listatributos[opcion2-1]
+                valor = input("Ingrese el dato actualizado")
+                currentUser.actualizarUsuario(atributo, valor)                                 
+            else: 
+                print("Opción incorrecta, vuelva a intentarlo.")                
+    #if opcion == "2":
 
 def incluirAsignatura(currentUser): 
     nombre = input("Ingrese el nombre de la asignatura: ")    

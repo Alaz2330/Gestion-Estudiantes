@@ -1,6 +1,6 @@
 from src.util.db import *
 class Usuario:
-    def __init__(self, userName: str, id: str, password: str, nombre: str, edad: str, genero: str, direccion: str, cellphone: str, email: str):
+    def __init__(self, id: str, password: str, userName: str, nombre: str, edad: str, genero: str, direccion: str, cellphone: str, email: str):
         self.userName = userName
         self.id = id
         self.password = password
@@ -60,7 +60,7 @@ class Usuario:
             return "Ups, ah ocurrido un error"
         
     def mostrarUsuario(self):
-        return self.userName, self.id, self.password, self.nombre, self.edad, self.genero, self.direccion, self.cellphone, self.email
+        return self.id, self.nombre, self.edad, self.genero, self.direccion, self.cellphone, self.email
     
 
 def checkUsuario(userName, password):
@@ -78,15 +78,3 @@ def checkUsuario(userName, password):
     except:
         return None, None
 
-def actualizarUsuario(id,atributo,valor):
-    try:
-        con,cur = connectDatabase()
-        cur.execute(f'''UPDATE Users
-                    SET {atributo}='{valor}'
-                    WHERE id='{id}';
-                    ''')
-        con.commit()
-        con.close()
-        return "Se actualizo con exito"
-    except:
-        return "Ups, ah ocurrido un error"

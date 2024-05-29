@@ -39,7 +39,7 @@ def menuPrincipal(tipo, currentUser):
         opciones = {
             "1": ("Registrar nuevo usuario.", registrarNuevoUsuario),
             "2": ("Consultar estudiante.", consulta, currentUser),
-            "3": ("Actualizar información de usuario.", None),
+            "3": ("Actualizar información de usuario.", actualizarUsuario, currentUser),
             "4": ("Asignar asignatura.", incluirAsignatura, currentUser),
             "5": ("Cerrar sesión.", None),
             "6": ("Finalizar el programa.", print, "El programa ha finalizado")
@@ -64,15 +64,7 @@ def menuPrincipal(tipo, currentUser):
         }
     generarMenu("Menú principal", opciones, finalizar, tipo, currentUser)
 
-    def subMenuConsultarEstudiante():
-        opciones = {
-            "1": ("Consulta por id: ", ),            
-            "2": ("Consulta por nombre", )   
-        }
+  
 
-    def submenuactualizarUsuario():
-        opciones = {
-            "1": ("Consulta por id: ", ),            
-            "2": ("Consulta por nombre", )   
-        }
+    
     

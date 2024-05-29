@@ -1,5 +1,5 @@
 class Asignatura:
-    def __init__(self, nombre, notas, profesor):
+    def __init__(self, nombre, profesor, notas = None):
         self.nombre = nombre
         self.profesor = profesor 
         self.agregarNotas = notas
